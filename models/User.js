@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const ObjectId = mongoose.Schema.Types.ObjectId;
 const Schema = mongoose.Schema;
 
-var userSchema = new Schema({
+var UserSchema = new Schema({
     email:  {
         type: String,
         unique: true
@@ -28,4 +28,4 @@ var userSchema = new Schema({
     toJson: {virtuals: true}
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', UserSchema);

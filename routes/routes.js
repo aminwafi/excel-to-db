@@ -1,11 +1,11 @@
 const { response } = require("express");
 const express = require("express");
-const userModel = require("./models/models");
-const Test = require("./test");
+const testModel = require("../models/test-model");
+const Test = require("../test");
 const app = express();
 
 app.get("/users", async (request, response) => {
-    const users = await userModel.find({});
+    const users = await testModel.find({});
     try {
         response.send(users);
     } catch (error) {
@@ -14,7 +14,7 @@ app.get("/users", async (request, response) => {
 });
 
 app.post("/add_user", async (request, response) => {
-    const add_user = new userModel(request.body);
+    const add_user = new testModel(request.body);
     try {
         await add_user.save();
         response.send(add_user);
@@ -24,7 +24,7 @@ app.post("/add_user", async (request, response) => {
 });
 
 app.post("/add_test", async (request, response) => {
-    const add_test = new userModel({name: Test().nama, age: Test().umur});
+    const add_test = new testModel({name: Test().nama, age: Test().umur});
     try {
         await add_test.save();
         response.send(add_test);

@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const userRouter = require("./routes.js");
+const userRouter = require("./routes/routes.js");
 
 const username = "admin";
 const password = "1234";

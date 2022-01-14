@@ -1,10 +1,9 @@
 const xlsx = require("xlsx");
 const path = require("path");
 
-const filePath = path.resolve(__dirname, "ESG_Premise_Template.xlsx");
+const filePath = path.resolve(__dirname, "./data/ESG_Premise_Template.xlsx");
 const wb = xlsx.readFile(filePath);
 const sheetName = wb.SheetNames[0];
-
 var worksheet = wb.Sheets[sheetName];
 
 /* for (let rowNum = range.s.r; rowNum <= range.e.r; rowNum++){
@@ -77,3 +76,10 @@ console.log(entity);
 if (entity !== null) {
     console.log('okay')
 } */
+
+function Extract_and_Load(){
+    // convert into json and generate data as arrays
+    const esg_json = xlsx.utils.sheet_to_json(worksheet, {header:['Email', 'Premise', 'Group', 'ESG Role', 'Water', 'Electricity', 'Genset', 'Extinguisher', 'Refrigerant', 'Fuel', 'Air Travel', 'Milage', 'Waste', 'Printing']});
+
+    
+}
