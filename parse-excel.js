@@ -43,27 +43,31 @@ function Extract_and_Load(){
     var max_data = esg_json.length;
     console.log(max_data);
 
-    var ESG_array = new Object();
-
-    // Extract Entity
-    var address_of_cell = 'B1';
-    var desired_cell = worksheet[address_of_cell];
-    ESG_array['Entity'] = (desired_cell ? desired_cell.v : undefined);
-    console.log(ESG_array['Entity']);
-
-    // Extract Country
-    var address_of_cell = 'B2';
-    var desired_cell = worksheet[address_of_cell];
-    ESG_array['Country'] = (desired_cell ? desired_cell.v : undefined);
-    console.log(ESG_array['Country']);
+    var ESG_array = [];
+    var ESG_list = new Object();
+    //ESG_array['']
 
     // Iterate starting 6th row, get required data
     for (i=row_baseline; i<max_data; i++)
     {
-        // Extract email
+        var ESG_list = new Object();
+
+        // Extract Entity
+        var address_of_cell = 'B1';
+        var desired_cell = worksheet[address_of_cell];
+        ESG_list['Entity'] = (desired_cell ? desired_cell.v : undefined);
+        console.log(ESG_list['Entity']);
+
+        // Extract Country
+        var address_of_cell = 'B2';
+        var desired_cell = worksheet[address_of_cell];
+        ESG_list['Country'] = (desired_cell ? desired_cell.v : undefined);
+        console.log(ESG_list['Country']);
+
+        // Extract Email
         const data = esg_json[i];
-        ESG_array['email'] = data['Email'];
-        console.log(ESG_array['email']);
+        ESG_list['Email'] = data['Email'];
+        // console.log(ESG_array['Email']);
         /*for (i=0; i<email.length; i++){
             if(email[i] == null)
             {
@@ -71,19 +75,45 @@ function Extract_and_Load(){
             }
         }*/
 
-        // Extract premise name
-        ESG_array['Premise'] = data['Premise'];
-        console.log(ESG_array['Premise']);
+        // Extract Premise Name
+        ESG_list['Premise'] = (data['Premise']);
+        // console.log(ESG_array['Premise']);
         /*for (i=0; i<premise_name.length; i++){
             if(premise_name[i] == null)
             {
 
             }
-        } */   
+        } */ 
+        
+        // Extract Group Name
+        ESG_list['Group'] = (data['Group']);
+        // console.log(ESG_array['Group']);
+        /*for (i=0; i<premise_name.length; i++){
+            if(premise_name[i] == null)
+            {
+
+            }
+        } */ 
+
+        // Extract ESG Role
+        ESG_list['ESG Role'] = (data['ESG Role']);
+        // console.log(ESG_array['ESG Role']);
+        /*for (i=0; i<premise_name.length; i++){
+            if(premise_name[i] == null)
+            {
+
+            }
+        } */ 
+
+        ESG_array.push(ESG_list);
     }
+
     
+    console.log(ESG_array);
     return ESG_array;
 
 }
+
+Extract_and_Load();
 
 module.exports = Extract_and_Load;

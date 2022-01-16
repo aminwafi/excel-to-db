@@ -17,4 +17,4 @@ var PremiseSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('Premise', PremiseSchema);
+module.exports = mongoose.model('Premise', PremiseSchema, "Premises");
