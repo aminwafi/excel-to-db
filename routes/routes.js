@@ -41,9 +41,14 @@ app.post("/add_esg", async (request, response) => {
     {
         const add_esg = new PremiseModel({name: EL()[i]['Email'], 
         entity: EL()[i]['Entity'], country: EL()[i]['Country'], group: EL()[i]['Group'] });
+        const add_esg_user = new UserModel({email: EL()[i]['Email'], 
+        utilityTypes: EL()[i]['Utility Type'], esgRole: EL()[i]['ESG Role'], 
+        entity: EL()[i]['Entity'], country: EL()[i]['Country'], group: EL()[i]['Group'] });
         try {
-            await add_esg.save();
-            response.send(add_esg);
+            //await add_esg.save();
+            await add_esg_user.save();
+            //response.send(add_esg);
+            response.send(add_esg_user);
         } catch (error) {
             response.status(500).send(error);
         }

@@ -34,17 +34,24 @@ function Extract_and_Load(){
         ESG_list['Country'] = (desired_cell ? desired_cell.v : undefined);
 
         // Extract Email
-        if (ESG_array.length < 1 && data['Email'] === null)
+        if (ESG_array.length < 1 && data['Email'] == null)
         {
             // to do
         }
         else
         {
-            ESG_list['Email'] = (data['Email']);
+            ESG_list['Email'] = data['Email'];
         }
 
         // Extract Premise Name
-        ESG_list['Premise'] = (data['Premise']);
+        if (ESG_array.length < 1 && data['Premise'] == null)
+        {
+            // to do
+        }
+        else
+        {
+            ESG_list['Premise'] = data['Premise'];
+        }
         
         // Extract Group Name
         ESG_list['Group'] = (data['Group']);
@@ -53,15 +60,15 @@ function Extract_and_Load(){
         ESG_list['ESG Role'] = (data['ESG Role']);
 
         
-        var k = Object.keys(data);
-        for (var j = data_baseline; j < k.length; j++) {
-            if (data[k[j]] == 'Enabled')
+        var keys = Object.keys(data);
+        for (var j = data_baseline; j < keys.length; j++) {
+            if (data[keys[j]] == 'Enabled')
             {
-                utility_type[k[j]] = true;
+                utility_type[keys[j]] = true;
             }
             else
             {
-                utility_type[k[j]] = false;
+                utility_type[keys[j]] = false;
             }
         }   
         ESG_list['Utility Type'] = utility_type;
