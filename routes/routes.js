@@ -1,8 +1,10 @@
 const { response } = require("express");
 const express = require("express");
 const testModel = require("../models/test-model");
+const UserModel = require("../models/User");
+const PremiseModel = require("../models/Premise");
 const Test = require("../test");
-// const EL = require("../parse-excel");
+const EL = require("../parse-excel");
 const app = express();
 
 app.get("/users", async (request, response) => {
@@ -31,6 +33,20 @@ app.post("/add_test", async (request, response) => {
         response.send(add_test);
     } catch (error) {
         response.status(500).send(error);
+    }
+});
+
+app.post("/add_esg", async (request, response) => {
+    for (var i=0; i<EL().length; i++)
+    {
+        const add_esg = new PremiseModel({name: EL()[i]['Email'], 
+        entity: EL()[i]['Entity'], country: EL()[i]['Country'], group: EL()[i]['Group'] });
+        try {
+            await add_esg.save();
+            response.send(add_esg);
+        } catch (error) {
+            response.status(500).send(error);
+        }
     }
 });
 
