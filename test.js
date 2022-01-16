@@ -1,6 +1,6 @@
 function Test(){
     var name = "test";
-    var umur = 27;
+    var umur = 55;
     var test_array = new Object();
 
     test_array['nama'] = name;

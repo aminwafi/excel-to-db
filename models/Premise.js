@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
-const ObjectId = mongoose.Schema.Types.ObjectId;
 const Schema = mongoose.Schema;
 
-var PremiseSchema = new mongoose.Schema({
+var PremiseSchema = new Schema({
     name: String,
     entity: String,
     country: String,
