@@ -16,12 +16,12 @@ function Extract_and_Load(){
 
     var ESG_array_User = [];
     var ESG_array_Premise = [];
-    var ESG_list = new Object();
 
     // Iterate starting 6th row, get required data
     for (i=row_baseline; i<max_data; i++)
     {   
         const data = esg_json[i];
+        var ESG_list = new Object();
         var utility_type = new Object();        
 
         // Extract Entity
@@ -80,10 +80,9 @@ function Extract_and_Load(){
         {
             if (ESG_list['ESG Role'] == 'Maker 1' || ESG_list['ESG Role'] == 'Maker 3' || ESG_list['ESG Role'] == 'Checker 1' || ESG_list['ESG Role'] === 'Checker 2')
             {
-                console.log('bokay');
                 ESG_array_User.push(ESG_list);
             }
-            else if (ESG_list['ESG Role'] === 'Maker 2')
+            else if (ESG_list['ESG Role'] == 'Maker 2')
             {
                 ESG_array_Premise.push(ESG_list);
             }

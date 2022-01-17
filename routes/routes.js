@@ -37,22 +37,33 @@ app.post("/add_test", async (request, response) => {
 });
 
 app.post("/add_esg", async (request, response) => {
-    for (var i=0; i<EL().length; i++)
+    // post Premise
+    for (var i=0; i<EL().ESG_array_Premise.length; i++)
     {
-        const add_esg = new PremiseModel({name: EL()[i]['Email'], 
-        entity: EL()[i]['Entity'], country: EL()[i]['Country'], group: EL()[i]['Group'] });
-        const add_esg_user = new UserModel({email: EL()[i]['Email'], 
-        utilityTypes: EL()[i]['Utility Type'], esgRole: EL()[i]['ESG Role'], 
-        entity: EL()[i]['Entity'], country: EL()[i]['Country'], group: EL()[i]['Group'] });
+        const add_esg = new PremiseModel({name: EL().ESG_array_Premise[i]['Email'], 
+        entity: EL().ESG_array_Premise[i]['Entity'], country: EL().ESG_array_Premise[i]['Country'], group: EL().ESG_array_Premise[i]['Group'] });
         try {
             await add_esg.save();
-            await add_esg_user.save();
             response.send(add_esg);
-            response.send(add_esg_user);
         } catch (error) {
             response.status(500).send(error);
         }
     }
+    
+    // post User
+    for (var j=0; j<EL().ESG_array_User.length; j++)
+    {
+        const add_esg_user = new UserModel({email: EL().ESG_array_User[j]['Email'], 
+        utilityTypes: EL().ESG_array_User[j]['Utility Type'], esgRole: EL().ESG_array_User[j]['ESG Role'], 
+        entity: EL().ESG_array_User[j]['Entity'], country: EL().ESG_array_User[j]['Country'], group: EL().ESG_array_User[j]['Group'] });
+        try {
+            await add_esg_user.save();
+            response.send(add_esg_user);
+        } catch (error) {
+            response.status(500).send(error)
+        }
+    }
+    
 });
 
 module.exports = app;
