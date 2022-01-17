@@ -45,9 +45,9 @@ app.post("/add_esg", async (request, response) => {
         utilityTypes: EL()[i]['Utility Type'], esgRole: EL()[i]['ESG Role'], 
         entity: EL()[i]['Entity'], country: EL()[i]['Country'], group: EL()[i]['Group'] });
         try {
-            //await add_esg.save();
+            await add_esg.save();
             await add_esg_user.save();
-            //response.send(add_esg);
+            response.send(add_esg);
             response.send(add_esg_user);
         } catch (error) {
             response.status(500).send(error);

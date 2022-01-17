@@ -14,13 +14,14 @@ function Extract_and_Load(){
     var data_baseline = 4;
     var max_data = esg_json.length;
 
-    var ESG_array = [];
+    var ESG_array_User = [];
+    var ESG_array_Premise = [];
+    var ESG_list = new Object();
 
     // Iterate starting 6th row, get required data
     for (i=row_baseline; i<max_data; i++)
     {   
         const data = esg_json[i];
-        var ESG_list = new Object();
         var utility_type = new Object();        
 
         // Extract Entity
@@ -34,7 +35,7 @@ function Extract_and_Load(){
         ESG_list['Country'] = (desired_cell ? desired_cell.v : undefined);
 
         // Extract Email
-        if (ESG_array.length < 1 && data['Email'] == null)
+        if (data['Email'] == null)
         {
             // to do
         }
@@ -44,7 +45,7 @@ function Extract_and_Load(){
         }
 
         // Extract Premise Name
-        if (ESG_array.length < 1 && data['Premise'] == null)
+        if (data['Premise'] == null)
         {
             // to do
         }
@@ -55,11 +56,12 @@ function Extract_and_Load(){
         
         // Extract Group Name
         ESG_list['Group'] = (data['Group']);
+        if (ESG_list['Group'])
 
         // Extract ESG Role
         ESG_list['ESG Role'] = (data['ESG Role']);
 
-        
+        // Extract Utility Types
         var keys = Object.keys(data);
         for (var j = data_baseline; j < keys.length; j++) {
             if (data[keys[j]] == 'Enabled')
@@ -73,11 +75,31 @@ function Extract_and_Load(){
         }   
         ESG_list['Utility Type'] = utility_type;
 
-        ESG_array.push(ESG_list);
-    }
+        // Validation
+        if (ESG_list['Entity'] === 'Maybank' && ESG_list['Country'] === 'Malaysia')
+        {
+            if (ESG_list['ESG Role'] == 'Maker 1' || ESG_list['ESG Role'] == 'Maker 3' || ESG_list['ESG Role'] == 'Checker 1' || ESG_list['ESG Role'] === 'Checker 2')
+            {
+                console.log('bokay');
+                ESG_array_User.push(ESG_list);
+            }
+            else if (ESG_list['ESG Role'] === 'Maker 2')
+            {
+                ESG_array_Premise.push(ESG_list);
+            }
+            else
+            {
+                // to do
+            }
 
-    return ESG_array;
-    
+        }
+        else
+        {   
+            // to do
+        }
+
+    }
+    return {ESG_array_User: ESG_array_User, ESG_array_Premise: ESG_array_Premise};
 }
 
 module.exports = Extract_and_Load;
