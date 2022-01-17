@@ -24,7 +24,7 @@ function Extract_and_Load(){
         var ESG_list = new Object();
         var utility_type = new Object();        
 
-        // Extract Entity
+        // Extract Entity   
         var address_of_cell = 'B1';
         var desired_cell = worksheet[address_of_cell];
         ESG_list['Entity'] = (desired_cell ? desired_cell.v : undefined);
@@ -56,7 +56,6 @@ function Extract_and_Load(){
         
         // Extract Group Name
         ESG_list['Group'] = (data['Group']);
-        if (ESG_list['Group'])
 
         // Extract ESG Role
         ESG_list['ESG Role'] = (data['ESG Role']);
