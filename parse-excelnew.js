@@ -9,7 +9,6 @@ var row_baseline = 4;
 var data_baseline = 5;
 var ESG_array_User = [];
 var ESG_array_Premise = [];
-var ESG_array = [];
 
 function ExtractandLoad() {    
     workbook.xlsx.readFile(filePath)
@@ -43,12 +42,13 @@ function ExtractandLoad() {
             }
         }
 
-        ESG_array.push(ESG_list);
+        console.log(ESG_list);
 
         for (var j=row_baseline; j<esg_list.length; j++)
         {
             var utility_type = new Object();
             var ESG_list_item = new Object();
+            var ESG_merge = new Object();
             const data = [];
             data[j] = esg_list[j];
                 
@@ -90,14 +90,33 @@ function ExtractandLoad() {
                     ESG_list_item['Utility Types'] = utility_type;
                 }
             } 
-                
-            ESG_array.push(ESG_list_item);
-            
-        } 
 
-        console.log(ESG_array);
+            ESG_merge = {
+                ...ESG_list,
+                ...ESG_list_item
+            };
+                
+            // Validation Requirement 
+            if (ESG_merge['Entity'] === 'Maybank' && ESG_merge['Country'] === 'Malaysia')
+            {
+                if (ESG_merge['ESG Role'] === 'Maker 1' || ESG_merge['ESG Role'] === 'Maker 3' || ESG_merge['ESG Role'] === 'Checker 1' || ESG_merge['ESG Role'] === 'Checker 2')
+                {
+                    ESG_array_User.push(ESG_merge);
+                    console.log(ESG_array_User);
+                }
+                else if (ESG_merge['ESG Role'] === 'Maker 2')
+                {
+                    ESG_array_Premise.push(ESG_merge);
+                    console.log(ESG_array_Premise);
+                }
+            }
+        }  
+
+        return {ESG_array_Premise: ESG_array_Premise, ESG_array_User: ESG_array_User};
         
     });
 }
 
 ExtractandLoad();
+
+module.exports = ExtractandLoad;
